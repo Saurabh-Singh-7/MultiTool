@@ -62,6 +62,18 @@ const imageTools = [
     description: "Extract exact colors and palettes from any image. Get HEX, RGB, HSL and CMYK codes.",
     href: "/image-color-picker",
   },
+  {
+    icon: "🔍",
+    name: "Image Enlarger",
+    description: "AI image upscaler. Enlarge photos 2x, 4x, or 8x without losing quality or adding blur.",
+    href: "/image-enlarger",
+  },
+  {
+    icon: "✨",
+    name: "Noise Remover",
+    description: "Remove grain and noise from photos. Smooth out JPEG artifacts and sharpen details.",
+    href: "/image-denoise",
+  },
 ]
 
 const pdfTools = [
