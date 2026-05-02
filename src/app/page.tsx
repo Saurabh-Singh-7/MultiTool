@@ -86,6 +86,12 @@ const imageTools = [
     description: "View hidden image metadata like camera settings and GPS. Remove EXIF data for privacy.",
     href: "/image-metadata",
   },
+  {
+    icon: "🔡",
+    name: "Base64 Converter",
+    description: "Convert images to Base64 encoded strings for HTML/CSS, or decode strings back to images.",
+    href: "/image-base64",
+  },
 ]
 
 const pdfTools = [
