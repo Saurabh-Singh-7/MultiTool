@@ -92,6 +92,12 @@ const imageTools = [
     description: "Convert images to Base64 encoded strings for HTML/CSS, or decode strings back to images.",
     href: "/image-base64",
   },
+  {
+    icon: "🛡️",
+    name: "Remove Metadata",
+    description: "Batch strip EXIF data, GPS location, and camera details to protect your privacy.",
+    href: "/remove-metadata",
+  },
 ]
 
 const pdfTools = [
