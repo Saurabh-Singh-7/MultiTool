@@ -50,6 +50,12 @@ const imageTools = [
     description: "Add text or image watermarks to protect your photos and artwork.",
     href: "/add-watermark",
   },
+  {
+    icon: "📄",
+    name: "Image to PDF",
+    description: "Convert JPG, PNG, WebP images to PDF. Combine multiple images into one document.",
+    href: "/image-to-pdf",
+  },
 ]
 
 const pdfTools = [
