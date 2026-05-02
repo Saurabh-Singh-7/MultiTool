@@ -56,6 +56,12 @@ const imageTools = [
     description: "Convert JPG, PNG, WebP images to PDF. Combine multiple images into one document.",
     href: "/image-to-pdf",
   },
+  {
+    icon: "🎨",
+    name: "Color Picker",
+    description: "Extract exact colors and palettes from any image. Get HEX, RGB, HSL and CMYK codes.",
+    href: "/image-color-picker",
+  },
 ]
 
 const pdfTools = [
