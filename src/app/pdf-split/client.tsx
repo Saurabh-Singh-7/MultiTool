@@ -8,12 +8,16 @@ import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
 
 import { PDFDocument } from 'pdf-lib'
-import * as pdfjsLib from 'pdfjs-dist'
 import JSZip from 'jszip'
 
-// Configure pdfjs worker
-if (typeof window !== 'undefined' && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'
+// pdfjs-dist must be loaded dynamically to avoid SSR issues
+// Use legacy build — it doesn't try to require('canvas')
+async function getPdfjs() {
+  const pdfjsLib = await import('pdfjs-dist/legacy/build/pdf')
+  if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'
+  }
+  return pdfjsLib
 }
 
 type SplitMode = 'extract' | 'range' | 'every-n' | 'all'
@@ -46,7 +50,6 @@ const formatBytes = (bytes: number) => {
 
 export default function PDFSplitClient() {
   const [file, setFile] = useState<File | null>(null)
-  const [fileBuffer, setFileBuffer] = useState<ArrayBuffer | null>(null)
   
   // PDF Data
   const [pageCount, setPageCount] = useState(0)
@@ -111,7 +114,6 @@ export default function PDFSplitClient() {
     
     try {
       const buffer = await f.arrayBuffer()
-      setFileBuffer(buffer)
       
       const pdf = await PDFDocument.load(buffer, { ignoreEncryption: true })
       setPageCount(pdf.getPageCount())
@@ -133,14 +135,15 @@ export default function PDFSplitClient() {
   }
 
   const unlockPdf = async (pwd: string) => {
-    if (!fileBuffer) return
+    if (!file) return
     try {
-      const pdf = await PDFDocument.load(fileBuffer, { password: pwd } as any)
+      const buffer = await file.arrayBuffer()
+      const pdf = await PDFDocument.load(buffer, { password: pwd } as any)
       setIsUnlocked(true)
       setPassword(pwd)
       setPageCount(pdf.getPageCount())
       showToast("✓ PDF unlocked!")
-      generateThumbnails(fileBuffer, pdf.getPageCount(), pwd)
+      generateThumbnails(buffer, pdf.getPageCount(), pwd)
     } catch {
       showToast("⚠ Incorrect password. Try again.")
     }
@@ -150,7 +153,8 @@ export default function PDFSplitClient() {
   const generateThumbnails = async (buffer: ArrayBuffer, totalPages: number, pwd?: string) => {
     setIsGeneratingThumbs(true)
     try {
-      const loadingTask = pdfjsLib.getDocument({ data: buffer, password: pwd })
+      const pdfjsLib = await getPdfjs()
+      const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(buffer), password: pwd })
       const pdf = await loadingTask.promise
       
       const newThumbs: PageThumb[] = []
@@ -288,14 +292,15 @@ export default function PDFSplitClient() {
 
   // -- SPLIT EXECUTION --
   const executeSplit = async () => {
-    if (btnDisabled || !fileBuffer || finalGroupsToSplit.length === 0) return
+    if (btnDisabled || !file || finalGroupsToSplit.length === 0) return
     
     setIsSplitting(true)
     setSplitProgress(5)
     setCurrentFileStr("Loading original document...")
     
     try {
-      const sourcePdf = await PDFDocument.load(fileBuffer, { password, ignoreEncryption: !password } as any)
+      const buffer = await file.arrayBuffer()
+      const sourcePdf = await PDFDocument.load(buffer, { password, ignoreEncryption: !password } as any)
       const newResults: SplitResult[] = []
       
       for (let g = 0; g < finalGroupsToSplit.length; g++) {
@@ -325,9 +330,9 @@ export default function PDFSplitClient() {
       setResults(newResults)
       showToast("✓ Split completed successfully!")
       
-    } catch (err) {
+    } catch (err: any) {
       console.error(err)
-      showToast("⚠ Error during split process.")
+      showToast(`⚠ ${err.message || "Error during split process."}`)
     } finally {
       setIsSplitting(false)
       setSplitProgress(0)
