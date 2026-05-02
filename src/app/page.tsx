@@ -98,6 +98,12 @@ const imageTools = [
     description: "Batch strip EXIF data, GPS location, and camera details to protect your privacy.",
     href: "/remove-metadata",
   },
+  {
+    icon: "🪄",
+    name: "Watermark Remover",
+    description: "Erase text, date stamps, and logos from photos using AI-powered inpainting algorithms.",
+    href: "/watermark-remover",
+  },
 ]
 
 const pdfTools = [
