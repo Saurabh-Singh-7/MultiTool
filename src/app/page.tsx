@@ -74,6 +74,12 @@ const imageTools = [
     description: "Remove grain and noise from photos. Smooth out JPEG artifacts and sharpen details.",
     href: "/image-denoise",
   },
+  {
+    icon: "🌫️",
+    name: "Image Blur",
+    description: "Blur faces, pixelate sensitive areas, or blur photo backgrounds to protect privacy.",
+    href: "/image-blur",
+  },
 ]
 
 const pdfTools = [
