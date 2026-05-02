@@ -120,6 +120,12 @@ const pdfTools = [
     href: "/pdf-split",
   },
   {
+    icon: "🗜️",
+    name: "PDF Compress",
+    description: "Reduce PDF file size up to 90% without losing quality. Set custom size targets.",
+    href: "/pdf-compress",
+  },
+  {
     icon: "🔄",
     name: "PDF to Image",
     description: "Convert PDF pages to high-quality JPG or PNG images for easy sharing.",
