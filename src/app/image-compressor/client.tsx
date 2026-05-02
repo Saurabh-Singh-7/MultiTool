@@ -803,7 +803,7 @@ export default function ImageCompressorClient() {
                                     </Badge>
                                   );
                                 })()}
-                                <Button size="sm" disabled={img.status === 'compressing'} onClick={() => downloadSingle(img.result!)} className="bg-brand-orange hover:bg-brand-orange-hover text-white h-8 px-3 cursor-pointer">
+                                <Button size="sm" onClick={() => downloadSingle(img.result!)} className="bg-brand-orange hover:bg-brand-orange-hover text-white h-8 px-3 cursor-pointer">
                                   <Download className="size-3.5 mr-1.5" /> Download ({formatBytes(img.result.compressedSize)})
                                 </Button>
                               </>

@@ -12,7 +12,7 @@ import {
   resizeImage, generatePreview, formatBytes, getAspectRatio, 
   getLockedHeight, getLockedWidth, cmToPixels, mmToPixels, inchToPixels,
   pixelsToCm, pixelsToMm, pixelsToInch, SOCIAL_PRESETS, PRINT_PRESETS, 
-  type ResizeResult, type ResizeOptions
+  type ResizeResult, type ResizeOptions, type SocialPreset, type PrintPreset
 } from "@/lib/resize"
 
 // --- TYPES ---
@@ -542,7 +542,7 @@ export default function ImageResizerClient() {
                       <span className="text-sm font-medium">Scale: <span className="text-brand-orange font-bold">{percentage}%</span></span>
                       <input type="number" value={percentage} onChange={(e) => setPercentage(Math.max(1, Math.min(500, parseInt(e.target.value)||100)))} className="w-20 bg-background border border-input rounded text-sm px-2 py-1 text-right" />
                     </div>
-                    <Slider value={[percentage]} onValueChange={(v) => setPercentage(v[0])} min={1} max={200} step={1} />
+                    <Slider value={[percentage]} onValueChange={(v) => setPercentage(Array.isArray(v) ? v[0] : v)} min={1} max={200} step={1} />
                     <div className="flex flex-wrap gap-2">
                       {[25, 50, 75, 100, 150, 200].map(p => (
                         <Badge key={p} variant="outline" className="cursor-pointer hover:bg-brand-orange/10 hover:text-brand-orange hover:border-brand-orange/30 font-normal" onClick={() => setPercentage(p)}>{p}%</Badge>
@@ -643,7 +643,7 @@ export default function ImageResizerClient() {
                     {compressWhileResizing && (
                       <div className="pl-6 space-y-3">
                         <div className="flex justify-between text-xs font-medium"><span>Quality</span><span>{outputQuality}%</span></div>
-                        <Slider value={[outputQuality]} onValueChange={v => setOutputQuality(v[0])} min={40} max={100} step={1} />
+                        <Slider value={[outputQuality]} onValueChange={v => setOutputQuality(Array.isArray(v) ? v[0] : v)} min={40} max={100} step={1} />
                       </div>
                     )}
                   </div>
