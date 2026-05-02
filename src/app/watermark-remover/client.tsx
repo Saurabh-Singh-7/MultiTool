@@ -26,6 +26,7 @@ export default function WatermarkRemoverClient() {
   const [isDrawing, setIsDrawing] = useState(false)
   const [drawStart, setDrawStart] = useState({ x: 0, y: 0 })
   const [drawCurrent, setDrawCurrent] = useState({ x: 0, y: 0 })
+  const [isHovering, setIsHovering] = useState(false)
   const [rects, setRects] = useState<Rect[]>([])
   
   const [isProcessing, setIsProcessing] = useState(false)
@@ -235,8 +236,12 @@ export default function WatermarkRemoverClient() {
   }
 
   const doDraw = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!isDrawing) return
     const pos = getCanvasPos(e)
+    
+    if (!isDrawing) {
+      setDrawCurrent(pos)
+      return
+    }
     
     if (mode === 'brush' || mode === 'eraser') {
       drawBrushLine(drawCurrent.x, drawCurrent.y, pos.x, pos.y, mode === 'eraser')
@@ -596,7 +601,8 @@ export default function WatermarkRemoverClient() {
                     onMouseDown={startDraw}
                     onMouseMove={doDraw}
                     onMouseUp={endDraw}
-                    onMouseLeave={endDraw}
+                    onMouseLeave={() => { endDraw(); setIsHovering(false) }}
+                    onMouseEnter={() => setIsHovering(true)}
                     onTouchStart={startDraw}
                     onTouchMove={doDraw}
                     onTouchEnd={endDraw}
@@ -610,7 +616,7 @@ export default function WatermarkRemoverClient() {
                     />
 
                     {/* Custom Cursor for Brush */}
-                    {(mode === 'brush' || mode === 'eraser') && !isDrawing && interactRef.current && (
+                    {(mode === 'brush' || mode === 'eraser') && isHovering && interactRef.current && (
                       <div 
                          className={`absolute rounded-full border-2 pointer-events-none transform -translate-x-1/2 -translate-y-1/2 ${mode === 'eraser' ? 'border-foreground bg-background/50' : 'border-red-500 bg-red-500/20'}`}
                          style={{
@@ -618,7 +624,7 @@ export default function WatermarkRemoverClient() {
                            height: brushSize * (interactRef.current.clientWidth / originalDims.w),
                            left: drawCurrent.x * (interactRef.current.clientWidth / originalDims.w),
                            top: drawCurrent.y * (interactRef.current.clientHeight / originalDims.h),
-                           display: drawCurrent.x > 0 ? 'block' : 'none'
+                           display: 'block'
                          }}
                       />
                     )}

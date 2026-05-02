@@ -111,7 +111,7 @@ const pdfTools = [
     icon: "📄",
     name: "PDF Merge",
     description: "Combine multiple PDF files into a single document. Drag to reorder pages.",
-    href: "#",
+    href: "/pdf-merge",
   },
   {
     icon: "✂️",
