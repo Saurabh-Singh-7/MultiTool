@@ -80,6 +80,12 @@ const imageTools = [
     description: "Blur faces, pixelate sensitive areas, or blur photo backgrounds to protect privacy.",
     href: "/image-blur",
   },
+  {
+    icon: "📋",
+    name: "EXIF Viewer",
+    description: "View hidden image metadata like camera settings and GPS. Remove EXIF data for privacy.",
+    href: "/image-metadata",
+  },
 ]
 
 const pdfTools = [
