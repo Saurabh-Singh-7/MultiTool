@@ -117,7 +117,7 @@ const pdfTools = [
     icon: "✂️",
     name: "PDF Split",
     description: "Split a PDF into individual pages or extract specific page ranges.",
-    href: "#",
+    href: "/pdf-split",
   },
   {
     icon: "🔄",
