@@ -8,9 +8,9 @@ import Link from "next/link"
 
 const popularTags = [
   { label: "Image Compressor", href: "/image-compressor" },
-  { label: "PDF Merge", href: "#" },
+  { label: "PDF Merge", href: "/pdf-merge" },
   { label: "Background Remover", href: "/background-remover" },
-  { label: "Audio Extractor", href: "#" },
+  { label: "Audio Extractor", href: "/extract-audio" },
 ]
 
 const imageTools = [
@@ -129,7 +129,49 @@ const pdfTools = [
     icon: "🔄",
     name: "PDF to Image",
     description: "Convert PDF pages to high-quality JPG or PNG images for easy sharing.",
-    href: "#",
+    href: "/pdf-to-image",
+  },
+  {
+    icon: "📝",
+    name: "PDF Editor",
+    description: "Edit PDF files online for free. Add text, insert images, draw shapes, and more.",
+    href: "/pdf-editor",
+  },
+  {
+    icon: "📝",
+    name: "PDF to Word",
+    description: "Convert PDF files to editable Word documents online for free. Preserve formatting, fonts and layout.",
+    href: "/pdf-to-word",
+  },
+  {
+    icon: "📊",
+    name: "PDF to Excel",
+    description: "Convert PDF tables to Excel spreadsheets online for free. Extract data from PDF to XLSX.",
+    href: "/pdf-to-excel",
+  },
+  {
+    icon: "📽️",
+    name: "PDF to PowerPoint",
+    description: "Convert PDF to PowerPoint presentations online for free. Each PDF page becomes a slide.",
+    href: "/pdf-to-ppt",
+  },
+  {
+    icon: "🔒",
+    name: "PDF Password Protect",
+    description: "Add password protection and encryption to your PDF files. Set permissions and secure documents instantly.",
+    href: "/pdf-protect",
+  },
+  {
+    icon: "🔓",
+    name: "PDF Unlock",
+    description: "Remove passwords and restrictions from your PDF files securely in your browser. Fast and completely private.",
+    href: "/pdf-unlock",
+  },
+  {
+    icon: "©️",
+    name: "PDF Watermark",
+    description: "Add custom text or image watermarks to your PDF documents. Customize position, opacity, and rotation.",
+    href: "/pdf-watermark",
   },
 ]
 
@@ -137,41 +179,83 @@ const videoTools = [
   {
     icon: "🎵",
     name: "Audio Extractor",
-    description: "Extract audio tracks from video files. Export as MP3, WAV, or AAC.",
-    href: "#",
+    description: "Extract audio from video files online for free. Convert MP4 to MP3, WAV, AAC and more instantly in browser.",
+    href: "/extract-audio",
   },
   {
     icon: "🎬",
     name: "Video Compressor",
-    description: "Reduce video file size while maintaining quality. Perfect for sharing.",
-    href: "#",
+    description: "Reduce video file size by up to 90% without losing quality. Support for MP4, AVI, MOV and HEVC.",
+    href: "/video-compressor",
   },
   {
     icon: "📹",
     name: "Video to GIF",
     description: "Convert video clips to animated GIFs. Set duration, speed, and quality.",
-    href: "#",
+    href: "/video-to-gif",
+  },
+  {
+    icon: "✂️",
+    name: "Video Trimmer",
+    description: "Trim and cut videos online for free. Support for MP4, MOV, and AVI with fast stream copy.",
+    href: "/video-trimmer",
+  },
+  {
+    icon: "🎥",
+    name: "Screen Recorder",
+    description: "Record your screen online with audio and webcam. No software download needed, direct MP4 export.",
+    href: "/screen-recorder",
+  },
+  {
+    icon: "🔇",
+    name: "Remove Audio",
+    description: "Remove audio from video, mute completely, or replace with a new track instantly.",
+    href: "/remove-audio",
+  },
+  {
+    icon: "🎼",
+    name: "Audio Converter",
+    description: "Convert between MP3, WAV, AAC, FLAC and more. Batch convert files with advanced audio filters.",
+    href: "/audio-converter",
+  },
+  {
+    icon: "🔗",
+    name: "Merge Audio",
+    description: "Join multiple audio files into one. Drag to reorder, add silence gaps, or crossfade tracks.",
+    href: "/merge-audio",
   },
 ]
 
 const calculators = [
   {
+    icon: "🧮",
+    name: "Scientific Calculator",
+    description: "Advanced online scientific calculator with trigonometry, logarithms, and complex math support.",
+    href: "/scientific-calculator",
+  },
+  {
     icon: "📊",
     name: "Percentage Calculator",
     description: "Calculate percentages, increases, decreases, and differences instantly.",
-    href: "#",
+    href: "/percentage-calculator",
   },
   {
     icon: "💰",
     name: "Loan Calculator",
     description: "Calculate monthly payments, total interest, and amortization schedules.",
-    href: "#",
+    href: "/loan-calculator",
+  },
+  {
+    icon: "⚖️",
+    name: "BMI Calculator",
+    description: "Calculate your Body Mass Index (BMI) and check your healthy weight range.",
+    href: "/bmi-calculator",
   },
   {
     icon: "🔢",
     name: "Unit Converter",
     description: "Convert between units of length, weight, temperature, and more.",
-    href: "#",
+    href: "/unit-converter",
   },
 ]
 

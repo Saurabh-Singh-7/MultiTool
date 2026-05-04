@@ -8,7 +8,23 @@ const nextConfig: NextConfig = {
       config.resolve.fallback = { 
         ...config.resolve.fallback, 
         fs: false,
+        path: false,
+        crypto: false,
+        stream: false,
+        zlib: false,
+        os: false,
       };
+
+      // Strip "node:" prefix so that resolve.fallback entries above handle them.
+      // e.g. "node:fs" → "fs" → falls back to `false` (empty module).
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /^node:/,
+          (resource: any) => {
+            resource.request = resource.request.replace(/^node:/, "");
+          }
+        )
+      );
     }
     
     // pdfjs-dist conditionally requires Node.js 'canvas' package for server-side rendering.
@@ -27,6 +43,24 @@ const nextConfig: NextConfig = {
     };
     return config;
   },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'require-corp',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
+

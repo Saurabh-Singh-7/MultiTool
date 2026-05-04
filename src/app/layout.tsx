@@ -54,6 +54,8 @@ export const metadata: Metadata = {
   },
 }
 
+import { Toaster } from "sonner"
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -65,16 +67,18 @@ export default function RootLayout({
       className={`${inter.variable} ${syne.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem={false}
           disableTransitionOnChange
+          suppressHydrationWarning
         >
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
+          <Toaster position="top-center" richColors />
         </ThemeProvider>
       </body>
     </html>
