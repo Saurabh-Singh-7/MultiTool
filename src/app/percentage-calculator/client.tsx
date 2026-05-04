@@ -74,14 +74,14 @@ const CalcCard = ({ id, title, icon: Icon, children, result, formula }: any) => 
                          <Copy className="size-4" />
                       </Button>
                    </div>
-                   <p className="text-2xl font-bold font-mono tracking-tight">{result}</p>
+                   <div className="text-2xl font-bold font-mono tracking-tight">{result}</div>
                    {formula && (
                       <div className="pt-4 border-t border-brand-orange/10 flex items-center gap-2">
                          <Info className="size-4 text-brand-orange/40" />
-                         <p className="text-[10px] md:text-xs text-muted-foreground font-medium">
+                         <div className="text-[10px] md:text-xs text-muted-foreground font-medium">
                             <span className="uppercase opacity-50 mr-2">Formula:</span>
                             {formula}
-                         </p>
+                         </div>
                       </div>
                    )}
                 </div>
@@ -269,10 +269,10 @@ export default function PercentageCalculatorClient() {
             <div className="flex items-center gap-4">
                {c3Percent >= 0 ? <TrendingUp className="size-8 text-green-500" /> : <TrendingDown className="size-8 text-red-500" />}
                <div>
-                  <p className={cn("text-2xl font-bold", c3Percent >= 0 ? "text-green-500" : "text-red-500")}>
+                  <div className={cn("text-2xl font-bold", c3Percent >= 0 ? "text-green-500" : "text-red-500")}>
                     {c3Percent >= 0 ? 'Increased' : 'Decreased'} by {formatPercent(Math.abs(c3Percent))}%
-                  </p>
-                  <p className="text-sm font-medium text-muted-foreground">Total Change: {c3Diff > 0 ? '+' : ''}{formatNum(c3Diff)}</p>
+                  </div>
+                  <div className="text-sm font-medium text-muted-foreground">Total Change: {c3Diff > 0 ? '+' : ''}{formatNum(c3Diff)}</div>
                </div>
             </div>
           }
