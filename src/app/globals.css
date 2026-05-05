@@ -94,36 +94,36 @@
 
 /* ---- DARK MODE (default) ---- */
 .dark {
-  --background: #0F172A;
+  --background: #09090b;
   --foreground: #F1F5F9;
-  --card: #1E293B;
+  --card: #18181b;
   --card-foreground: #F1F5F9;
-  --popover: #1E293B;
+  --popover: #18181b;
   --popover-foreground: #F1F5F9;
   --primary: #F97316;
   --primary-foreground: #FFFFFF;
-  --secondary: #1E293B;
+  --secondary: #27272a;
   --secondary-foreground: #F1F5F9;
-  --muted: #1E293B;
-  --muted-foreground: #94A3B8;
-  --accent: #1E293B;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #27272a;
   --accent-foreground: #F1F5F9;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: #334155;
-  --input: #334155;
+  --border: #27272a;
+  --input: #27272a;
   --ring: #F97316;
   --chart-1: #F97316;
   --chart-2: #3B82F6;
   --chart-3: #10B981;
   --chart-4: #8B5CF6;
   --chart-5: #EC4899;
-  --sidebar: #1E293B;
+  --sidebar: #18181b;
   --sidebar-foreground: #F1F5F9;
   --sidebar-primary: #F97316;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #334155;
+  --sidebar-accent: #27272a;
   --sidebar-accent-foreground: #F1F5F9;
-  --sidebar-border: #334155;
+  --sidebar-border: #27272a;
   --sidebar-ring: #F97316;
 }
 
@@ -137,6 +137,29 @@
   html {
     @apply font-sans scroll-smooth;
   }
+
+  /* Global Form Elements Styling */
+  input[type="text"],
+  input[type="number"],
+  input[type="password"],
+  input[type="email"],
+  input[type="url"],
+  textarea,
+  select {
+    @apply bg-muted/30 border border-border rounded-xl px-4 py-2.5 text-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange/50 focus:bg-background;
+  }
+
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50 transition-colors;
+  }
 }
 
 /* Custom utility classes */
@@ -148,13 +171,18 @@
     background-clip: text;
   }
 
+  .bg-card {
+    background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  }
+
   .glow-orange {
     box-shadow: 0 0 20px rgba(249, 115, 22, 0.3),
                 0 0 40px rgba(249, 115, 22, 0.1);
   }
 
   .glow-orange-sm {
-    box-shadow: 0 0 10px rgba(249, 115, 22, 0.2),
-                0 0 20px rgba(249, 115, 22, 0.05);
+    box-shadow: 0 0 15px rgba(249, 115, 22, 0.15),
+                0 0 30px rgba(249, 115, 22, 0.05);
   }
 }

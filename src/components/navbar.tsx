@@ -4,8 +4,10 @@ import Link from "next/link"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Menu, X } from "lucide-react"
 import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 
 const navLinks = [
+  { href: "/converters", label: "All Converters" },
   { href: "/#image-tools", label: "Image Tools" },
   { href: "/#pdf-tools", label: "PDF Tools" },
   { href: "/#video-tools", label: "Video Tools" },
@@ -17,76 +19,86 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10)
+    const handleScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   return (
-    <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "bg-background/80 shadow-lg shadow-black/5 backdrop-blur-xl border-b border-border"
-          : "bg-transparent"
-      }`}
-    >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <header className={`sticky top-0 z-50 w-full transition-all duration-500 ${
+      scrolled 
+        ? "bg-background/80 backdrop-blur-2xl border-b border-border/50 shadow-sm" 
+        : "bg-background/40 backdrop-blur-md border-b border-transparent"
+    }`}>
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
+      >
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-1 text-xl font-heading font-bold tracking-tight transition-transform hover:scale-105"
+          className="flex items-center gap-1.5 text-xl font-heading font-bold tracking-tight group"
         >
-          <span className="text-foreground">Tool</span>
-          <span className="text-2xl">🔥</span>
+          <span className="text-foreground transition-colors group-hover:text-brand-orange">Tool</span>
+          <span className="text-2xl transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">🔥</span>
           <span className="text-brand-orange">Hive</span>
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="relative px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground group"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-brand-orange"
             >
               {link.label}
-              <span className="absolute bottom-0 left-1/2 h-0.5 w-0 bg-brand-orange transition-all duration-300 group-hover:left-3 group-hover:w-[calc(100%-1.5rem)]" />
             </Link>
           ))}
         </div>
 
-        {/* Right side */}
+        {/* Actions */}
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <button
-            className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors cursor-pointer"
+            className="md:hidden p-2 rounded-full bg-muted/50 hover:bg-muted transition-colors cursor-pointer"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+            <motion.div animate={{ rotate: mobileOpen ? 90 : 0 }}>
+              {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+            </motion.div>
           </button>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Mobile menu */}
-      <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          mobileOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="border-t border-border bg-background/95 backdrop-blur-xl px-4 pb-4 pt-2 space-y-1">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="block rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-      </div>
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-20 left-4 right-4 md:hidden pointer-events-auto"
+          >
+            <div className="rounded-3xl border border-border/50 bg-background/80 backdrop-blur-2xl p-4 shadow-2xl space-y-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-2xl px-4 py-3 text-sm font-semibold text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }
